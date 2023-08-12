@@ -1,4 +1,5 @@
 import { connect } from '@/dbConfig'
+import { sendEmail } from '@/helpers';
 import User from '@/models/userModel'
 import { NextRequest, NextResponse } from 'next/server'
 var bcryptjs = require('bcryptjs');
@@ -7,6 +8,7 @@ connect()
 
 export async function POST(request: NextRequest) {
     try {
+        console.log('working')
         const {username, email, password} = await request.json();
         const user = await User.findOne({email})
         if(user){
@@ -23,16 +25,19 @@ export async function POST(request: NextRequest) {
         })
 
         const savedUser = await newUser.save()
-
-        console.log(savedUser);
-
+        await sendEmail({email,emailType: "VERIFY",userId: savedUser._id})
         return NextResponse.json({
             message: "User created successfully",
             success: true,
             savedUser
         })
+
+        
+
+        
     } catch (error: any) {
         return NextResponse.json({error:error.message}, {status: 500})
+        console.log(error)
     }
 }
 
