@@ -16,12 +16,11 @@ export default function NavBar(){
       removeSession();
       toast.success('Logout successful')
       router.push('/user/login')
-      console.log(response.data)
+
     } catch (error: any) {
       await errorHandler(error)
     }
   }
-  console.log(session)
     return (
         <header className="flex flex-col ">
           <div className="border border-fgrey-300 bg-fgrey-100 flex justify-end px-2">

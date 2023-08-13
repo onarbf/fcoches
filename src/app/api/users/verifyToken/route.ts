@@ -10,11 +10,13 @@ export async function GET(request: NextRequest){
     try {
         const cookieStore = cookies()
         const token = cookieStore.get("token")?.value || '';
-        const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET!);
-        const user = await User.findById(decodedToken.id).select("-password -__v ")
-        console.log('user',user)
-        return NextResponse.json({...user, isLogged: true});
-        
+        if(token){
+            console.log('almicas')
+            const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET!);
+            const user = await User.findById(decodedToken.id).select("-password -__v ")
+            return NextResponse.json({...user, isLogged: true});
+        }
+        return NextResponse.json({},{status:200});
     } catch (error:any) {
         console.log(error.message)
         return NextResponse.json({ error: error.message }, { status: 500 })

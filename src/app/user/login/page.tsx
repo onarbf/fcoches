@@ -27,7 +27,7 @@ export default function LoginPage() {
             if (response.data.success) {
                 await createSession();
                 toast.success("Login success")
-                router.push("/user/signup")
+                router.push("/")
             }
 
         } catch (error: any) {

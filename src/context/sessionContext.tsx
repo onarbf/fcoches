@@ -18,10 +18,9 @@ export const SessionProvider = ({children}: {children: any})=>{
     }
     const createSession = async()=>{
         try {
-            console.log(session)
             const {data} = await axios.get('/api/users/verifyToken')
-            console.log('data',data)
-            if(data) setSession({...data})    
+            if(data) setSession({...data})   
+
         } catch (error: any) {
             await errorHandler(error)
         }

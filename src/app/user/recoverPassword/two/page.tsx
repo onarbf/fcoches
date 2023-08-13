@@ -24,6 +24,7 @@ export default function RecoverPassword(request: any) {
         try {
             setLoading(true)
             const response = await axios.post('/api/users/recoverPassword/two', {password: user.password, repeatPassword: user.repeatPassword, passwordToken})
+            toast.success(response.data.message)
         } catch (error: any) {
             await errorHandler(error)
         } finally {

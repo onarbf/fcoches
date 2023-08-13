@@ -1,12 +1,13 @@
 import { connect } from '@/helpers/dbConfig'
 import User from '@/models/userModel'
+import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 var bcryptjs = require('bcryptjs')
 const jwt = require("jsonwebtoken")
 connect()
 
 export async function POST(request: NextRequest) {
-    
+    const cookieStorage = cookies()
     try {
         const {email, password, isVerified} = await request.json()
         const user = await User.findOne({email})
@@ -32,7 +33,7 @@ export async function POST(request: NextRequest) {
             message: "Login successful",
             success: true
         })
-        response.cookies.set("token",token,{httpOnly: true})
+        cookieStorage.set("token",token,{httpOnly: true})
         return response;
     } catch (error: any) {
         console.log(error.message)
