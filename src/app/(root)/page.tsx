@@ -1,10 +1,10 @@
 'use client'
 import { useSession } from "@/context/sessionContext";
 import styles from "../../styles";
+import Link from "next/link";
 
 export default function Home() {
   const {session} = useSession()
-  console.log(session.isLogged)
   return (
     <main className="grow">
       <section className={styles.section.default}>
@@ -12,7 +12,7 @@ export default function Home() {
 
       {!session.isLogged && <div className="flex flex-col justify-center">
         <p>¿Aún no tienes cuenta? ¡A qué esperas!</p>
-        <button className={styles.button.primary(false)}>Registarse</button>
+        <button className={styles.button.primary(false)}><Link href="/user/signup">Registarse</Link></button>
       </div>}
 
      </section>

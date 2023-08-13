@@ -24,7 +24,9 @@ export default function RecoverPassword(request: any) {
         try {
             setLoading(true)
             const response = await axios.post('/api/users/recoverPassword/two', {password: user.password, repeatPassword: user.repeatPassword, passwordToken})
-            toast.success(response.data.message)
+            console.log(response)
+            toast.success('Contraseña cambiada con éxito!')
+            router.push('/')
         } catch (error: any) {
             await errorHandler(error)
         } finally {

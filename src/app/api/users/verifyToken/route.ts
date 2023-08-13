@@ -11,7 +11,6 @@ export async function GET(request: NextRequest){
         const cookieStore = cookies()
         const token = cookieStore.get("token")?.value || '';
         if(token){
-            console.log('almicas')
             const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET!);
             const user = await User.findById(decodedToken.id).select("-password -__v ")
             return NextResponse.json({...user, isLogged: true});

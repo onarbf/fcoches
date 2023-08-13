@@ -13,6 +13,7 @@ export async function sendEmail({ email, emailType, userId }: any) {
         verifyTokenExpiry: Date.now() + 3600000
       })
     } else if (emailType === "RECOVER") {
+      console.log('generating recoverPasswordCode')
       await User.findByIdAndUpdate(userId, {
         forgotPasswordToken: hashedToken,
         forgotPasswordTokenExpiry: Date.now() + 3600000
@@ -21,30 +22,34 @@ export async function sendEmail({ email, emailType, userId }: any) {
     const transporter = nodemailer.createTransport({
       host: "live.smtp.mailtrap.io",
       port: 587,
-      secure: false,
-      secureConnection: false,
+      // secure: false,
+      // secureConnection: false,
+      greetingTimeout : 1000 * 120,
       auth: {
         user: process.env.NODEMAILER_USER,
         pass: process.env.NODEMAILER_PASS
       },
-      tls: {
-        ciphers:'SSLv3'
-    }
+    //   tls: {
+    //     ciphers:'SSLv3'
+    // }
     });
+
+    const verifyUrl = `${process.env.DOMAIN}/user/verifyEmail?token=${hashedToken}`
+    const recoverPasswordUrl = `${process.env.DOMAIN}//user/recoverPassword/two?token=${hashedToken}`
     const mailOptions = {
       from: 'fcoches@onar.dev',
       to: email,
       subject: emailType === "VERIFY" ? "verify your email" : "reset your password",
       html: `<p> Click on 
-      <a href="${process.env.DOMAIN}/user/verifyEmail?token=${hashedToken}">this link</a>
-      to ${emailType === "VERIFY" ? "verify your email" : "reset your password"} or you can copy & paste this link on your browser:
-      <br/>
-      ${process.env.DOMAIN}/user/recoverPassword/two?token=${hashedToken}
+      <a href="${emailType === "VERIFY"?verifyUrl: recoverPasswordUrl}">this link</a>
+      to ${emailType === "VERIFY" ? "verify your email" : "reset your password"}.
       </p>`
     }
+    console.log(mailOptions)
     const mailResponse = await transporter.sendMail(mailOptions)
     return mailResponse
   } catch (error: any) {
+    console.log(error)
     throw new Error(error.message)
   }
 }
