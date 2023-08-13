@@ -16,7 +16,7 @@ export default function NavBar(){
       removeSession();
       toast.success('Logout successful')
       router.push('/user/login')
-    console.log(response.data)
+      console.log(response.data)
     } catch (error: any) {
       await errorHandler(error)
     }

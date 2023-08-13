@@ -8,11 +8,13 @@ connect()
 export async function GET(request: NextRequest){
     try {
         const token = request.cookies.get("token")?.value || '';
+        console.log('user',token)
         if(!token){
             return NextResponse.json({});
         }
         const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET!);
         const user = await User.findById(decodedToken.id).select("-password -__v ")
+        console.log('user',user)
         return NextResponse.json({...user, isLogged: true});
         
     } catch (error:any) {
