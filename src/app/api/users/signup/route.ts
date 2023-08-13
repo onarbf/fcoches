@@ -1,5 +1,5 @@
-import { connect } from '@/dbConfig'
-import { sendEmail } from '@/helpers';
+import {  connect } from '@/helpers/dbConfig';
+import { sendEmail} from '@/helpers';
 import User from '@/models/userModel'
 import { NextRequest, NextResponse } from 'next/server'
 var bcryptjs = require('bcryptjs');
@@ -8,8 +8,10 @@ connect()
 
 export async function POST(request: NextRequest) {
     try {
-        console.log('working')
-        const {username, email, password} = await request.json();
+        const {username, email, password, repeatedPassword} = await request.json();
+        if(password !== repeatedPassword){
+            return NextResponse.json({error: "Las contraseñas no coinciden"}, {status: 400})
+        }
         const user = await User.findOne({email})
         if(user){
             return NextResponse.json({error: "User already exists"}, {status: 400})
@@ -36,8 +38,8 @@ export async function POST(request: NextRequest) {
 
         
     } catch (error: any) {
-        return NextResponse.json({error:error.message}, {status: 500})
-        console.log(error)
+        console.log(error.message)
+        return NextResponse.json({ error: error.message }, { status: 500 })
     }
 }
 

@@ -4,18 +4,21 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 
-
+import { useSession } from "@/context/sessionContext"
+import styles from "@/styles"
+import errorHandler from "@/helpers/errorHandler"
 export default function NavBar(){
   const router = useRouter()
+  const {session, removeSession} = useSession()
   const handleLogout = async ()=>{
     try {
       const response = await axios.get('/api/users/logout')
+      removeSession();
       toast.success('Logout successful')
       router.push('/user/login')
     console.log(response.data)
     } catch (error: any) {
-      console.log(error.message)
-      toast.error(error.message)
+      await errorHandler(error)
     }
   }
     return (
@@ -27,11 +30,11 @@ export default function NavBar(){
           </div>
 
           <div className="border border-fgrey-300 bg-fgrey-100 flex justify-end px-2 mt-1">
-            <ul className="flex gap-2 underline text-forange">
+            <ul className="flex gap-2">
 
-            <li><Link href="/user/signup">Registrarse</Link> </li>
-            <li><Link href="/user/login">Identificarse</Link> </li>
-            <li><button onClick={handleLogout}>Cerrar Sesión</button> </li>
+            {!session.isLogged  && <li className={styles.link.default}><Link href="/user/signup">Registrarse</Link> </li>}
+            {!session.isLogged && <li className={styles.link.default}><Link href="/user/login">Identificarse</Link> </li>}
+           {session.isLogged && <li ><button className={styles.link.default} onClick={handleLogout}>Cerrar Sesión</button> </li>}
             </ul>
           </div>
 

@@ -1,7 +1,7 @@
 import { UserTypes } from "@/types";
 import mongoose from "mongoose";
-
-
+ 
+  
 
 const userSchema = new mongoose.Schema<UserTypes>({
 username: {
@@ -11,7 +11,7 @@ username: {
 },
 password: {
     type: String,
-    required: [true, "Please provide a password"]
+    required: [true, "Please provide a password"],
 },
 email: {
     type: String,

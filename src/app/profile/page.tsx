@@ -1,4 +1,5 @@
 'use client'
+import errorHandler from "@/helpers/errorHandler"
 import { UserTypes } from "@/types"
 import axios from "axios"
 import { useEffect, useState } from "react"
@@ -6,9 +7,14 @@ import { useEffect, useState } from "react"
 export default function Profile() {
     const [user, setUser] = useState<UserTypes>()
     const getUserDetails = async () => {
-        const response = await axios.get('api/users/me')
-        const user: UserTypes = response.data.user
-        setUser(user)
+        try {
+            const response = await axios.get('api/users/me')
+            const user: UserTypes = response.data.user
+            setUser(user)    
+        } catch (error: any) {
+            await errorHandler(error)
+        }
+        
     }
 
     useEffect(()=>{

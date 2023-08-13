@@ -8,28 +8,19 @@ import styles from '@/styles';
 import { useSession } from '@/context/sessionContext';
 import errorHandler from '@/helpers/errorHandler';
 
-export default function LoginPage() {
-    const { createSession } = useSession()
+export default function RecoverPassword() {
     const router = useRouter()
     const [user, setUser] = useState({
-        email: "",
-        password: ""
+        email: ""
     })
     const [buttonDissabled, setButtonDissabled] = useState(true)
     const [loading, setLoading] = useState(false)
 
-
-    const onLogin = async () => {
+    const onRecoverPassword = async () => {
 
         try {
             setLoading(true)
-            const response = await axios.post('/api/users/login', user)
-            if (response.data.success) {
-                await createSession();
-                toast.success("Login success")
-                router.push("/user/signup")
-            }
-
+            const response = await axios.post('/api/users/recoverPassword/one', {email: user.email})
         } catch (error: any) {
             await errorHandler(error)
         } finally {
@@ -37,7 +28,7 @@ export default function LoginPage() {
         }
     }
     useEffect(() => {
-        if (user.email.length > 0 && user.password.length > 0) {
+        if (user.email.length > 0 ) {
             setButtonDissabled(false)
         } else {
             setButtonDissabled(true)
@@ -46,11 +37,11 @@ export default function LoginPage() {
     return (
         <section className={styles.section.default}>
             <div>
-                <h1 className={styles.text.h1}>Página de identificación</h1>
+                <h1 className={styles.text.h1}>Recuperar contraseña</h1>
             </div>
             <div className={styles.form.default}>
                 <div className="flex flex-col">
-                    <label htmlFor="email">Introduce tu email:</label>
+                    <label htmlFor="email">Introduce tu email, al que te enviaremos un código para recuperar tu contraseña</label>
                     <input
                         className={styles.input.text}
                         placeholder="email"
@@ -59,18 +50,14 @@ export default function LoginPage() {
                         value={user.email}
                         onChange={(e) => setUser({ ...user, email: e.target.value })} />
                 </div>
-                <div className="flex flex-col">
-                    <label htmlFor="password">Introduce la contraseña:</label>
-                    <input className={styles.input.text} placeholder="Password" type="password" id="password" value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} />
-                </div>
-                <button onClick={onLogin}
+                <button onClick={onRecoverPassword}
                     className={styles.button.primary(buttonDissabled)}>
-                    Identificarse
+                    Recuperar contraseña
                 </button>
                 <div>
                     <ul className="flex flex-col">
-                        <li className={styles.link.default}><Link href="/user/signup">Crea tu cuenta aquí</Link></li>
-                        <li className={styles.link.default}><Link href="/user/recoverPassword/one">¿Has olvidado la contraseña?</Link></li>
+                        <li className={styles.link.default}><Link href="/user/login">Tengo una cuenta</Link></li>
+                        <li className={styles.link.default}><Link href="/user/signup">Crear una cuenta</Link></li>
                     </ul>
                 </div>
 

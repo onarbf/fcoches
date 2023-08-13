@@ -1,4 +1,4 @@
-import { connect } from "@/dbConfig"
+import { connect } from "@/helpers/dbConfig"
 import User from "@/models/userModel"
 const bcryptjs = require('bcryptjs')
 const nodemailer = require('nodemailer')
@@ -12,7 +12,7 @@ export async function sendEmail({ email, emailType, userId }: any) {
         verifyToken: hashedToken,
         verifyTokenExpiry: Date.now() + 3600000
       })
-    } else if (emailType === "RESET") {
+    } else if (emailType === "RECOVER") {
       await User.findByIdAndUpdate(userId, {
         forgotPasswordToken: hashedToken,
         forgotPasswordTokenExpiry: Date.now() + 3600000
@@ -34,11 +34,10 @@ export async function sendEmail({ email, emailType, userId }: any) {
       <a href="${process.env.DOMAIN}/user/verifyEmail?token=${hashedToken}">this link</a>
       to ${emailType === "VERIFY" ? "verify your email" : "reset your password"} or you can copy & paste this link on your browser:
       <br/>
-      ${process.env.DOMAIN}/user/verifyEmail?token=${hashedToken}
+      ${process.env.DOMAIN}/user/recoverPassword/two?token=${hashedToken}
       </p>`
     }
     const mailResponse = await transporter.sendMail(mailOptions)
-    console.log()
     return mailResponse
   } catch (error: any) {
     throw new Error(error.message)

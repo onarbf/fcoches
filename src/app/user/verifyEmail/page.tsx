@@ -1,6 +1,7 @@
 'use client'
-import styles from "@/app/styles"
-import { verificationEmailState } from "@/consts"
+import styles from "@/styles"
+import { verificationEmailState } from "@/app/consts"
+import errorHandler from "@/helpers/errorHandler"
 import axios from "axios"
 import Link from "next/link"
 import { NextRequest } from "next/server"
@@ -15,8 +16,8 @@ export default function VerifyEmail(request: any) {
       try {
          await axios.post('/api/users/newVerificationToken', { token })
          setVerificationState(verificationEmailState.SENT_NEW_TOKEN)
-      } catch (error) {
-         console.log(error)
+      } catch (error: any) {
+         await errorHandler(error)
       }
       
    }
@@ -31,7 +32,6 @@ export default function VerifyEmail(request: any) {
                }
 
                if(response.data.verificationState === verificationEmailState.EXPIRED_TOKEN ){
-                  console.log('token expired', response.data)
                   setVerificationState(verificationEmailState.EXPIRED_TOKEN)
                }
 
@@ -43,7 +43,7 @@ export default function VerifyEmail(request: any) {
             }
          } catch (error: any) {
             setVerificationState(verificationEmailState.NOT_TOKEN)
-            console.log(error)
+            await errorHandler(error)
          }
       }
       verifyUser()

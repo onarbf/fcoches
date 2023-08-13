@@ -4,7 +4,8 @@ import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import styles from '@/app/styles';
+import styles from '@/styles';
+import errorHandler from '@/helpers/errorHandler';
 
 export default function SignupPage() {
     const router = useRouter();
@@ -23,8 +24,7 @@ export default function SignupPage() {
             console.log("Signup success", response.data)
             router.push('/user/login')
         } catch (error: any) {
-            console.log("Signup failed", error.message)
-            toast.error(error.message)
+            await errorHandler(error)
         } finally {
             setLoading(false)
         }
@@ -69,7 +69,7 @@ export default function SignupPage() {
                         <li className={styles.link.default}>
                             <Link href="/user/login">Ya tengo una cuenta</Link>
                             </li><li className={styles.link.default}>
-                            <Link href="#">¿Has olvidado la contraseña?</Link>
+                            <Link href="/user/recoverPassword/one">¿Has olvidado la contraseña?</Link>
                             </li>
                         
                     </ul>
