@@ -14,6 +14,7 @@ export function middleware(request: NextRequest){
     )
 
     const token = request.cookies.get('token')?.value || ''
+    console.log('token middleware', token)
     if(isPublicPath && token){
         return NextResponse.redirect(new URL('/', request.nextUrl))
     }
@@ -25,10 +26,10 @@ export function middleware(request: NextRequest){
 
 export const config ={
     matcher: [
-        '/profile/:path*',
-        '/user/login',
-        '/user/signup',
-        '/user/verifyEmail',
-        '/user/recoverPassword/:path*'
+        // '/profile/:path*',
+        // '/user/login',
+        // '/user/signup',
+        // '/user/verifyEmail',
+        // '/user/recoverPassword/:path*'
     ]
 }

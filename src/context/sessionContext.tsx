@@ -13,6 +13,7 @@ export const useSession = ()=>{
 
 export const SessionProvider = ({children}: {children: any})=>{
     const [session, setSession] = useState({})
+    console.log('session',session)
     const removeSession = ()=>{
         setSession({})
     }
