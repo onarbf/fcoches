@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
             message: "Login successful",
             success: true
         })
-        response.cookies.set("token",token,{httpOnly: false})
+        response.cookies.set("token",token,{httpOnly: true})
         return response;
     } catch (error: any) {
         console.log(error.message)
