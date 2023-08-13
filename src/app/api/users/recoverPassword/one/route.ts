@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { connect, sendEmail } from "@/helpers";
+import { sendEmail } from "@/helpers";
 import User from "@/models/userModel";
-
-connect()
 
 export async function POST(request: NextRequest){
     try {

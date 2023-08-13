@@ -24,9 +24,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} min-h-screen flex flex-col m-2`}>
-      <ErrorBoundary fallback={<></>}>
+        <ErrorBoundary fallback={<></>}>
           <SessionProvider>
-            <Toaster />
+            <Toaster toastOptions={{ duration: 8000 }} />
             <NavBar />
             {children}
           </SessionProvider>

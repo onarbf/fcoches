@@ -12,7 +12,7 @@ export default function SignupPage() {
     const [user, setUser] = useState({
         email: "",
         password: "",
-        repeatedPassword:"",
+        repeatedPassword: "",
         username: ""
     })
     const [buttonDissabled, setButtonDissabled] = useState(true)
@@ -42,10 +42,10 @@ export default function SignupPage() {
     return (
         <section className={styles.section.default}>
             <div>
-                <h1  className={styles.text.h1}>Página de registro</h1>
+                <h1 className={styles.text.h1}>Página de registro</h1>
             </div>
             <div className={styles.form.default}>
-            <div className="flex flex-col">
+                <div className="flex flex-col">
                     <label htmlFor="username">introduce tu nombre de usuario:</label>
                     <input className={styles.input.text} type="text" id="username" value={user.username} onChange={(e) => setUser({ ...user, username: e.target.value })} placeholder="username" />
                 </div>
@@ -55,24 +55,24 @@ export default function SignupPage() {
                 </div>
                 <div className="flex flex-col">
                     <label htmlFor="password">Introduzca la contraseña:</label>
-                    <input className={styles.input.text}  type="password" id="password" value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} />
+                    <input className={styles.input.text} type="password" id="password" value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} />
                 </div>
                 <div className="flex flex-col">
                     <label htmlFor="password">Repetir contraseña:</label>
-                    <input className={styles.input.text}  type="password" id="repeatedPassword" value={user.repeatedPassword} onChange={(e) => setUser({ ...user, repeatedPassword: e.target.value })} />
+                    <input className={styles.input.text} type="password" id="repeatedPassword" value={user.repeatedPassword} onChange={(e) => setUser({ ...user, repeatedPassword: e.target.value })} />
                 </div>
                 <button onClick={onSignup}
                     className={styles.button.primary(buttonDissabled)}>
                     Registrarse
                 </button>
                 <div>
-                <ul className="flex flex-col">
+                    <ul className="flex flex-col">
                         <li className={styles.link.default}>
                             <Link href="/user/login">Ya tengo una cuenta</Link>
-                            </li><li className={styles.link.default}>
+                        </li><li className={styles.link.default}>
                             <Link href="/user/recoverPassword/one">¿Has olvidado la contraseña?</Link>
-                            </li>
-                        
+                        </li>
+
                     </ul>
                 </div>
             </div>

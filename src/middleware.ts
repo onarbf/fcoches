@@ -3,7 +3,8 @@ import { NextRequest, NextResponse } from "next/server"
 
 export function middleware(request: NextRequest){
     const privatePaths = {
-        profile: '/profile'
+        profile: '/profile',
+        publish: '/post/publish'
     }
 
         
@@ -22,21 +23,17 @@ export function middleware(request: NextRequest){
     const path = request.nextUrl.pathname
     
     const token = request.cookies.get('token')?.value || ''
-    console.log('token middleware', token)
 
 
     if (Object.values(privatePaths).indexOf(path) !== -1 && !token){
-        console.log('rutas privadas')
         return NextResponse.redirect(new URL('/user/login', request.nextUrl))
     }
 
     if (Object.values(unAuthPaths).indexOf(path) !== -1 && token){
-        console.log('rutas no auth')
         return NextResponse.redirect(new URL('/', request.nextUrl))
     }
     
     if (Object.values(publicPaths).indexOf(path) !== -1){
-        console.log('rutas publicas')
     }
 }
 
@@ -46,6 +43,7 @@ export const config ={
         '/user/signup',
         '/user/login',
         '/profile',
+        '/post/publish',
         '/user/recoverPassword/one',
         '/user/recoverPassword/two',
     ]

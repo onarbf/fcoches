@@ -12,15 +12,14 @@ export const useSession = ()=>{
 }
 
 export const SessionProvider = ({children}: {children: any})=>{
-    const [session, setSession] = useState({})
-    console.log('session',session)
+    const [session, setSession] = useState(null)
     const removeSession = ()=>{
-        setSession({})
+        setSession(null)
     }
     const createSession = async()=>{
         try {
             const {data} = await axios.get('/api/users/verifyToken')
-            if(data) setSession({...data})   
+            if(data) setSession({...data._doc, isLogged: true})   
 
         } catch (error: any) {
             await errorHandler(error)

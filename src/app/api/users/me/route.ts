@@ -1,9 +1,7 @@
-import { connect } from "@/helpers/dbConfig";
 import { getDataFromToken } from "@/helpers";
 import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 
-connect()
 export async function GET(request: NextRequest){
         try {
             const userId = await getDataFromToken(request);

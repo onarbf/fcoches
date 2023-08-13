@@ -32,9 +32,10 @@ export default function NavBar(){
           <div className="border border-fgrey-300 bg-fgrey-100 flex justify-end px-2 mt-1">
             <ul className="flex gap-2">
 
-            {!session.isLogged  && <li className={styles.link.default}><Link href="/user/signup">Registrarse</Link> </li>}
-            {!session.isLogged && <li className={styles.link.default}><Link href="/user/login">Identificarse</Link> </li>}
-           {session.isLogged && <li ><button className={styles.link.default} onClick={handleLogout}>Cerrar Sesión</button> </li>}
+            {!session  && <li className={styles.link.default}><Link href="/user/signup">Registrarse</Link> </li>}
+            {!session && <li className={styles.link.default}><Link href="/user/login">Identificarse</Link> </li>}
+           {session && <li className={styles.link.default} ><Link  href="/post/publish">Publicar nuevo post</Link> </li>}
+           {session && <li ><button className={styles.link.default} onClick={handleLogout}>Cerrar Sesión</button> </li>}
             </ul>
           </div>
 

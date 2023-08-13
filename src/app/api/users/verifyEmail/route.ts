@@ -1,9 +1,6 @@
 import { verificationEmailState } from "@/app/consts";
-import { connect } from "@/helpers/dbConfig";
 import User from "@/models/userModel";
-import { useRouter } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
-connect()
 
 export async function POST(request: NextRequest) {
     try {

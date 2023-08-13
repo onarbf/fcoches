@@ -1,9 +1,7 @@
-import { connect } from "@/helpers/dbConfig"
 import User from "@/models/userModel"
 const bcryptjs = require('bcryptjs')
 const nodemailer = require('nodemailer')
 
-connect()
 export async function sendEmail({ email, emailType, userId }: any) {
   try {
     const hashedToken = await bcryptjs.hash(userId.toString(), 10)

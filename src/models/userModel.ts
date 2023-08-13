@@ -25,6 +25,7 @@ email: {
     type: Boolean,
     default: false
  },
+ posts: [String],
  forgotPasswordToken: String,
  forgotPasswordTokenExpiry: Date,
  verifyToken: String,
