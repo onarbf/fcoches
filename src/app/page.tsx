@@ -1,6 +1,6 @@
 'use client'
 import { useSession } from "@/context/sessionContext";
-import styles from "../../styles";
+import styles from "../styles";
 import Link from "next/link";
 import PostsList from "@/components/PostsList";
 

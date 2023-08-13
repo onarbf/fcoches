@@ -15,7 +15,7 @@ export default function NavBar(){
       const response = await axios.get('/api/users/logout')
       removeSession();
       toast.success('Logout successful')
-      router.push('/user/login')
+      router.refresh()
 
     } catch (error: any) {
       await errorHandler(error)

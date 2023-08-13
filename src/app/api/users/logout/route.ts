@@ -1,7 +1,7 @@
-import {NextResponse} from 'next/server';
+import {NextRequest, NextResponse} from 'next/server';
 import { cookies } from 'next/headers'
 
-export async function GET(){
+export async function GET(request: NextRequest){
   const cookieStorage = cookies()
  try {
     const response = NextResponse.json({
@@ -10,7 +10,6 @@ export async function GET(){
     },{status: 200})
 
     cookieStorage.delete("token")
-
     return response
  } catch (error: any) {
    console.log(error.message)
