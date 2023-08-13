@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <main className="grow">
       <section className={styles.section.default}>
-      <h2>Bienvenid@ a Fcoches, un original foro para hablar de todo, menos de coches.</h2>
+      <h2>¡Bienvenid@ a Fcoches, un original foro para hablar de todo, menos de coches!</h2>
 
       {!session.isLogged && <div className="flex flex-col justify-center">
         <p>¿Aún no tienes cuenta? ¡A qué esperas!</p>
