@@ -17,7 +17,8 @@ const styles = {
         default: "flex flex-col border p-2 gap-2 bg-grey-200 min-w-full sm:min-w-[500px]"
     },
     section: {
-        default: "flex flex-col items-center justify-center py-2 gap-2 bg-fgrey-100 border border-fgrey-300 mt-1"
+        default: "flex flex-col items-center justify-center py-2 gap-2 bg-fgrey-100 border border-fgrey-300 mt-1",
+        expand: "flex py-2 gap-2 bg-fgrey-100 border border-fgrey-300 mt-1"
     }
 }
 
