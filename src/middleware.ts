@@ -3,11 +3,19 @@ import { NextRequest, NextResponse } from "next/server"
 
 
 export function middleware(request: NextRequest){
+    console.log("middleware working")
     const path = request.nextUrl.pathname
-    const isPublicPath = (path === '/user/login' || path === '/user/signup' || path === '/' || path === '/user/verifyEmail')
+    const isPublicPath = (
+    path === '/user/login'
+    || path === '/user/signup'
+    || path === '/'
+    || path === '/user/verifyEmail'
+    || path === '/user/recoverPassword/one'
+    || path === '/user/recoverPassword/two'
+    )
 
     const token = request.cookies.get('token')?.value || ''
-
+    console.log("token",token)
     if(isPublicPath && token){
         return NextResponse.redirect(new URL('/', request.nextUrl))
     }
@@ -22,6 +30,7 @@ export const config ={
         '/profile/:path*',
         '/user/login',
         '/user/signup',
-        '/user/verifyEmail'
+        '/user/verifyEmail',
+        '/user/recoverPassword/:path*'
     ]
 }

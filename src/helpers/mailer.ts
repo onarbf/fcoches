@@ -19,15 +19,20 @@ export async function sendEmail({ email, emailType, userId }: any) {
       })
     }
     const transporter = nodemailer.createTransport({
-      host: "sandbox.smtp.mailtrap.io",
-      port: 2525,
+      host: "live.smtp.mailtrap.io",
+      port: 587,
+      secure: false,
+      secureConnection: false,
       auth: {
         user: process.env.NODEMAILER_USER,
         pass: process.env.NODEMAILER_PASS
-      }
+      },
+      tls: {
+        ciphers:'SSLv3'
+    }
     });
     const mailOptions = {
-      from: 'fcoches@gmail.com',
+      from: 'fcoches@onar.dev',
       to: email,
       subject: emailType === "VERIFY" ? "verify your email" : "reset your password",
       html: `<p> Click on 

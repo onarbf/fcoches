@@ -5,7 +5,7 @@ const styles = {
         text: "text-black px-1 py-2 border border-fgrey-300 rounded"
     },
     button:{
-        primary: (state: boolean)=>`${state ? "bg-fgrey-300 text-slate-600 pointer-events-none" : "bg-fblue text-white"} p-2 border border-gray-300 rounded-lg mb-4  focus:outline-none`
+        primary: (state: boolean)=>`${!state ? "bg-fblue text-white": "bg-fgrey-300 text-slate-600 pointer-events-none"} p-2 border border-gray-300 rounded-lg mb-4  focus:outline-none`
     },
     link:{
         default: "text-forange underline"
