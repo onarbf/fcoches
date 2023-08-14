@@ -47,7 +47,8 @@ export default function SignupPage() {
             <div>
                 <h1 className={styles.text.h1}>Página de registro</h1>
             </div>
-            <div className={styles.form.default}>
+            {loading && <h2 className={styles.text.h2}>Registro completado, en breves le llegará un email</h2>}
+           {!loading && <div className={styles.form.default}>
                 <div className="flex flex-col">
                     <label htmlFor="username">introduce tu nombre de usuario:</label>
                     <input className={styles.input.text} type="text" id="username" value={user.username} onChange={(e) => setUser({ ...user, username: e.target.value })} placeholder="username" />
@@ -78,6 +79,6 @@ export default function SignupPage() {
 
                     </ul>
                 </div>
-            </div>
+            </div>}
         </section>)
 }
