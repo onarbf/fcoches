@@ -58,6 +58,7 @@ export default async function PostPage({ params }: any) {
                             {post && <div dangerouslySetInnerHTML={{__html: post.body}} />}
                         </div>
                     </div>
+                    
                 </div>
             </section>
         </section>)

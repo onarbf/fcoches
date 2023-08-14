@@ -6,7 +6,7 @@ export const validators = {
         let success = true;
         let messages: string[] = []
 
-        if(!validator.isEmpty(email)){
+        if(validator.isEmpty(email)){
             success = false
             messages.push('El campo email está vacío')
         }
@@ -26,7 +26,7 @@ export const validators = {
         let success = true;
         let messages: string[] = []
 
-        if(!validator.isEmpty(password)){
+        if(validator.isEmpty(password)){
             success = false
             messages.push('El campo password está vacío')
         }
@@ -51,7 +51,7 @@ export const validators = {
         let success = true;
         let messages: string[] = []
 
-        if(!validator.isEmpty(username)){
+        if(validator.isEmpty(username)){
             success = false
             messages.push('El campo username está vacío')
         }
