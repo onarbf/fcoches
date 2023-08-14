@@ -1,12 +1,9 @@
 'use client'
 import styles from "@/styles"
 import { verificationEmailState } from "@/app/consts"
-import errorHandler from "@/helpers/errorHandler"
-import axios from "axios"
-import Link from "next/link"
-import { NextRequest } from "next/server"
+import {errorHandler} from "@/helpers/errorHandler"
 import { useEffect, useState } from "react"
-import toast from "react-hot-toast"
+import { requester } from "@/helpers/requester"
 
 
 export default function VerifyEmail(request: any) {
@@ -14,7 +11,10 @@ export default function VerifyEmail(request: any) {
    const [verificationState,setVerificationState] = useState(verificationEmailState.VERIFYING_TOKEN)
    const generateNewVerificationToken = async ()=>{
       try {
-         await axios.post('/api/users/newVerificationToken', { token })
+         await requester('/api/users/newVerificationToken', {
+            method: "POST",
+            body: JSON.stringify({ token })
+         })
          setVerificationState(verificationEmailState.SENT_NEW_TOKEN)
       } catch (error: any) {
          await errorHandler(error)
@@ -26,16 +26,19 @@ export default function VerifyEmail(request: any) {
       const verifyUser = async () => {
          try {
             if(token){
-               const response = await axios.post('/api/users/verifyEmail', { token })
-               if(response.data.verificationState === verificationEmailState.VERIFIED_TOKEN){
+               const data = await requester('/api/users/verifyEmail',{
+                  method: "POST",
+                  body: JSON.stringify({ token })
+               })
+               if(data.verificationState === verificationEmailState.VERIFIED_TOKEN){
                   setVerificationState( verificationEmailState.VERIFIED_TOKEN )
                }
 
-               if(response.data.verificationState === verificationEmailState.EXPIRED_TOKEN ){
+               if(data.verificationState === verificationEmailState.EXPIRED_TOKEN ){
                   setVerificationState(verificationEmailState.EXPIRED_TOKEN)
                }
 
-               if(response.data.verificationState === verificationEmailState.WRONG_TOKEN ){
+               if(data.verificationState === verificationEmailState.WRONG_TOKEN ){
                   setVerificationState(verificationEmailState.WRONG_TOKEN)
                }
             }else{

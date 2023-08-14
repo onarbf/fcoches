@@ -1,18 +1,18 @@
 'use client'
-import axios from "axios"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 
 import { useSession } from "@/context/sessionContext"
 import styles from "@/styles"
-import errorHandler from "@/helpers/errorHandler"
+import {errorHandler} from "@/helpers/errorHandler"
+import { requester } from "@/helpers/requester"
 export default function NavBar(){
   const router = useRouter()
   const {session, removeSession} = useSession()
   const handleLogout = async ()=>{
     try {
-      const response = await axios.get('/api/users/logout')
+      const data = await requester('/api/users/logout',{method: "GET"})
       removeSession();
       toast.success('Logout successful')
       router.refresh()

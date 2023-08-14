@@ -18,7 +18,6 @@ export default function Publish() {
             setLoading(true)
             const response = await fetch(`/api/posts`, {
                 method: "post",
-                cache: "no-cache",
                 body: JSON.stringify(post)
             })
             if (response.status === 200) {
@@ -27,7 +26,7 @@ export default function Publish() {
                     body: "",
                     category: "general"
                 })
-                router.push('/');
+                router.push("/");
             }
         } catch (error: any) {
             console.log(error)

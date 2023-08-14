@@ -1,11 +1,11 @@
 'use client'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
-import axios from 'axios'
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import styles from '@/styles';
-import errorHandler from '@/helpers/errorHandler';
+import {errorHandler} from '@/helpers/errorHandler';
+import { requester } from '@/helpers/requester';
 
 export default function SignupPage() {
     const router = useRouter();
@@ -20,9 +20,12 @@ export default function SignupPage() {
     const onSignup = async () => {
         try {
             setLoading(true)
-            const response = await axios.post('/api/users/signup', user)
-            console.log("Signup success", response.data)
-            toast.success(response.data.message)
+            const data = await requester('/api/users/signup', {
+                method: "POST",
+                body: JSON.stringify(user)
+            })
+            console.log("Signup success", data)
+            toast.success(data.message)
             router.push('/user/login')
         } catch (error: any) {
             await errorHandler(error)

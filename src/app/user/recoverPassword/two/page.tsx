@@ -1,13 +1,10 @@
 'use client'
-import Link from 'next/link';
 import { useRouter } from 'next/navigation'
-import axios from 'axios'
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import styles from '@/styles';
-import { useSession } from '@/context/sessionContext';
-import errorHandler from '@/helpers/errorHandler';
-import { NextRequest } from 'next/server';
+import {errorHandler} from '@/helpers/errorHandler';
+import { requester } from '@/helpers';
 
 export default function RecoverPassword(request: any) {
     const [passwordToken] = useState(request.searchParams.token)
@@ -23,8 +20,13 @@ export default function RecoverPassword(request: any) {
 
         try {
             setLoading(true)
-            const response = await axios.post('/api/users/recoverPassword/two', {password: user.password, repeatPassword: user.repeatPassword, passwordToken})
-            console.log(response)
+            const data = await requester('/api/users/recoverPassword/two',{
+                method: "POST",
+                body: JSON.stringify(
+                    {password: user.password, repeatPassword: user.repeatPassword, passwordToken}
+                )
+            })
+            console.log(data)
             toast.success('Contraseña cambiada con éxito!')
             router.push('/')
         } catch (error: any) {

@@ -18,7 +18,7 @@ const styles = {
     },
     section: {
         default: "flex flex-col items-center justify-center py-2 gap-2 bg-fgrey-100 border border-fgrey-300 mt-1",
-        expand: "flex py-2 gap-2 bg-fgrey-100 border border-fgrey-300 mt-1"
+        expand: "flex py-2 gap-2 bg-fgrey-100 border border-fgrey-300 mt-1 px-2"
     }
 }
 

@@ -6,19 +6,20 @@ const jwt = require("jsonwebtoken")
 
 export async function POST(request: NextRequest) {
     const cookieStorage = cookies()
+    
     try {
         const {email, password, isVerified} = await request.json()
         const user = await User.findOne({email})
         if(!user){
-            return NextResponse.json({error: "Ese usuario no existe"},{status: 400})
+            return NextResponse.json({message: "Ese usuario no existe"},{status: 400})
         }
         const validPassword = await bcryptjs.compare(password, user.password)
         if(!validPassword){
-            return NextResponse.json({error: "Ese password es invalido"},{status: 400})
+            return NextResponse.json({message: "Ese password es invalido"},{status: 400})
         }
 
         if(!user.isVerified){
-            return NextResponse.json({error: "Tu email no está verificado. Revisa tu email"},{status: 400})
+            return NextResponse.json({message: "Tu email no está verificado. Revisa tu email"},{status: 400})
         }
 
         const tokenData = {
@@ -35,7 +36,7 @@ export async function POST(request: NextRequest) {
         return response;
     } catch (error: any) {
         console.log(error.message)
-        return NextResponse.json({ error: error.message }, { status: 500 })
+        return NextResponse.json({ message: error.message }, { status: 500 })
     }
 }
 

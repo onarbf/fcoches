@@ -1,12 +1,12 @@
 'use client'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
-import axios from 'axios'
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import styles from '@/styles';
 import { useSession } from '@/context/sessionContext';
-import errorHandler from '@/helpers/errorHandler';
+import {requester} from '@/helpers/requester';
+import {errorHandler} from '@/helpers/errorHandler';
 
 export default function LoginPage() {
     const { createSession } = useSession()
@@ -23,13 +23,12 @@ export default function LoginPage() {
 
         try {
             setLoading(true)
-            const response = await axios.post('/api/users/login', user)
-            if (response.data.success) {
-                await createSession();
-                toast.success("Login success")
-                router.push("/")
-            }
-
+            const data = await requester('/api/users/login',  {
+                method: 'POST',
+                body: JSON.stringify(user)})
+            await createSession()    
+            toast.success(data.message)
+            router.push('/')
         } catch (error: any) {
             await errorHandler(error)
         } finally {

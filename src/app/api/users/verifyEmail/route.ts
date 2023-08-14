@@ -5,7 +5,9 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
     try {
         const reqBody = await request.json()
+        console.log(reqBody)
         const { token } = reqBody
+        
         const user = await User.findOne({ verifyToken: token})
         if (!user) {
             return NextResponse.json({ error: "User not found",success: false, verificationState: verificationEmailState.WRONG_TOKEN }, { status: 400 })

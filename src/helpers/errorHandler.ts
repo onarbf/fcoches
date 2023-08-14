@@ -1,17 +1,14 @@
-import { Axios, AxiosError, AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 
-
 interface ErrorResponse {
-    error?: string;
-    // Otros campos que esperas en la respuesta
+    message?: string;
 }
 
-export default async function errorHandler(error: AxiosError  ){
+export async function errorHandler(error: any ){
     if(error.response?.status === 400 || error.response?.status === 500){
         const responseData = error.response.data as ErrorResponse
-            if(responseData.error){
-                toast.error(responseData.error)        
+            if(responseData.message){
+                toast.error(responseData.message)        
             }else{
                 console.error(error)            
             }

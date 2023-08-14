@@ -1,12 +1,12 @@
 'use client'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
-import axios from 'axios'
+
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import styles from '@/styles';
-import { useSession } from '@/context/sessionContext';
-import errorHandler from '@/helpers/errorHandler';
+import {errorHandler} from '@/helpers/errorHandler';
+import { requester } from '@/helpers';
 
 export default function RecoverPassword() {
     const router = useRouter()
@@ -20,8 +20,8 @@ export default function RecoverPassword() {
 
         try {
             setLoading(true)
-            const response = await axios.post('/api/users/recoverPassword/one', {email: user.email})
-            toast.success(response.data.message)
+            const data = await requester('/api/users/recoverPassword/one', {method:"POST", body: JSON.stringify({email: user.email})})
+            toast.success(data.message)
         } catch (error: any) {
             await errorHandler(error)
         } finally {
