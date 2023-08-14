@@ -47,7 +47,7 @@ export default function SignupPage() {
             <div>
                 <h1 className={styles.text.h1}>Página de registro</h1>
             </div>
-            {loading && <h2 className={styles.text.h2}>Registro completado, en breves le llegará un email</h2>}
+            {loading && <h2 className={styles.text.h2}>Registro completado, en breves recibirás un email de confirmación</h2>}
            {!loading && <div className={styles.form.default}>
                 <div className="flex flex-col">
                     <label htmlFor="username">introduce tu nombre de usuario:</label>

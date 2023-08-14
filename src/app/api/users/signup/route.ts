@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
 
         const savedUser = await newUser.save()
         
-        sendEmail({email,emailType: "VERIFY",userId: savedUser._id})
+        await sendEmail({email,emailType: "VERIFY",userId: savedUser._id})
 
         return NextResponse.json({
             message: "Usuario creado con éxito. Te hemos enviado un email, lo recibirás en un par de minutos!",
