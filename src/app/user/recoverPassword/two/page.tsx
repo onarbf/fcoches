@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import styles from '@/styles';
 import {errorHandler} from '@/helpers/errorHandler';
-import { requester } from '@/helpers';
+import { requester } from '@/helpers/requester';
 
 export default function RecoverPassword(request: any) {
     const [passwordToken] = useState(request.searchParams.token)

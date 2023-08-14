@@ -1,5 +1,5 @@
 'use client'
-import { requester } from "@/helpers"
+import { requester } from "@/helpers/requester"
 import {errorHandler} from "@/helpers/errorHandler"
 import { UserTypes } from "@/types"
 import { useEffect, useState } from "react"
