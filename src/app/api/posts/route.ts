@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getDataFromToken } from "@/helpers";
 import Post from "@/models/postModel";
+import { getDataFromToken } from "@/helpers";
 import User from "@/models/userModel";
+import { validators } from "@/helpers/validators";
+import {sanitize} from "@/helpers/sanitizers";
+
 
 export async function GET(request: NextRequest){
     try {
@@ -10,21 +13,31 @@ export async function GET(request: NextRequest){
 
     } catch (error: any) {
         console.log(error.message)
-        return NextResponse.json({error: error.message},{status:500})
+        return NextResponse.json({message: error.message},{status:500})
     }
 }
+
+
 
 export async function POST(request: NextRequest){
 
     try {
         const {title, body, category} = await request.json()
+        console.log({title, body, category})
+        const [validTitle, messageTitle] = validators.title({title})
+        const [validBody, messageBody] = validators.body({body})
+        
+        if(!validTitle) return NextResponse.json({message: messageTitle},{status:400})
+        if(!validBody) return NextResponse.json({message: messageBody},{status:400})
+        
+        const sanitizedBody = sanitize(body);
         const token = request.cookies.get('token')?.value || ''
-        if(!token)return NextResponse.json({error: 'token not defined '},{status: 400})
+        if(!token)return NextResponse.json({message: 'token not defined '},{status: 400})
         const userId = getDataFromToken(request)
-        if(!userId)return NextResponse.json({error: 'wrong token '},{status: 400})
+        if(!userId)return NextResponse.json({message: 'wrong token '},{status: 400})
         const post = await Post.create({
             title,
-            body,
+            body: sanitizedBody,
             category,
             author: userId,
         })
@@ -34,7 +47,7 @@ export async function POST(request: NextRequest){
         return NextResponse.json({message:"post created successfully", post},{status: 200})
     } catch (error: any) {
         console.log(error.message)
-        return NextResponse.json({error: error.message},{status:500})
+        return NextResponse.json({message: error.message},{status:500})
     }
 
 

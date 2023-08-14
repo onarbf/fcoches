@@ -1,3 +1,4 @@
+import { validators } from '@/helpers/validators'
 import User from '@/models/userModel'
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
@@ -8,19 +9,15 @@ export async function POST(request: NextRequest) {
     const cookieStorage = cookies()
     
     try {
-        const {email, password, isVerified} = await request.json()
+        const {email, password} = await request.json()
         const user = await User.findOne({email})
-        if(!user){
-            return NextResponse.json({message: "Ese usuario no existe"},{status: 400})
-        }
         const validPassword = await bcryptjs.compare(password, user.password)
-        if(!validPassword){
-            return NextResponse.json({message: "Ese password es invalido"},{status: 400})
-        }
+        const [validEmail, msgEmail] = validators.email({email})
 
-        if(!user.isVerified){
-            return NextResponse.json({message: "Tu email no está verificado. Revisa tu email"},{status: 400})
-        }
+        if(!validEmail) return  NextResponse.json({message: msgEmail},{status: 400})
+        if(!user) return  NextResponse.json({message: "Ese usuario no existe"},{status: 400})
+        if(!validPassword) return  NextResponse.json({message: "Ese password es invalido"},{status: 400})
+        if(!user.isVerified) return  NextResponse.json({message: "Tu email no está verificado. Revisa tu email"},{status: 400})
 
         const tokenData = {
             id: user._id,

@@ -1,20 +1,20 @@
 import { PostType } from "@/types";
-import mongoose from "mongoose";
+import mongoose, {Schema} from "mongoose";
  
   
 
 const postSchema = new mongoose.Schema({
 title: {
     type: String,
-    required: [true, "Please provide a username"],
+    required: [true, "Please provide a title"],
 },
 body: {
     type: String,
-    required: [true, "Please provide a password"],
+    required: [true, "Please provide a body"],
 },
 category: {
     type: String,
-    required: [true, "Please provide an email"]
+    required: [true, "Please provide a category"]
 },
  createdAt: {
     type: Date,
@@ -25,8 +25,13 @@ category: {
     default: undefined
  },
  author: {
-    type:  mongoose.Schema.Types.ObjectId
- }
+    type:  Schema.Types.ObjectId,
+    ref: 'users' 
+ },
+ comments: [{
+    type:  Schema.Types.ObjectId,
+    ref: 'comments' 
+ }]
 })
 
 const Post = mongoose.models.posts || mongoose.model("posts", postSchema)

@@ -12,7 +12,8 @@ const styles = {
     },
     text: {
         h1: "text-3xl",
-        h2: "text-2xl"
+        h2: "text-2xl",
+        small: "text-sm"
     },
     form:{
         default: "flex flex-col border p-2 gap-2 bg-grey-200 min-w-full sm:min-w-[500px]"

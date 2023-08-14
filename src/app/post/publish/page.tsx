@@ -1,9 +1,11 @@
 'use client'
+import Wysiwyg from "@/components/Wysiwyg";
+import { errorHandler } from "@/helpers/errorHandler";
+import { requester } from "@/helpers/requester";
 import styles from "@/styles";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import toast from "react-hot-toast";
-
+import 'react-quill/dist/quill.snow.css';
 
 export default function Publish() {
     const router = useRouter()
@@ -12,25 +14,25 @@ export default function Publish() {
         body: "",
         category: "general"
     })
+    const [value, setValue] = useState('')
+
     const [loading, setLoading] = useState(false)
     const onSubmit = async () => {
         try {
             setLoading(true)
-            const response = await fetch(`/api/posts`, {
+            await requester(`/api/posts`, {
                 method: "post",
                 body: JSON.stringify(post)
             })
-            if (response.status === 200) {
-                setPost({
-                    title: "",
-                    body: "",
-                    category: "general"
-                })
-                router.push("/");
-            }
+            setPost({
+                title: "",
+                body: "",
+                category: "general"
+            })
+            router.push("/");
+
         } catch (error: any) {
-            console.log(error)
-            toast.error(error.message)
+            await errorHandler(error)
         } finally {
             setLoading(false)
         }
@@ -42,10 +44,7 @@ export default function Publish() {
                 <label>Titulo</label>
                 <input type="text" id="title" value={post.title} onChange={(e) => setPost({ ...post, title: e.target.value })} className={styles.input.text} />
             </div>
-            <div className=" flex flex-col">
-                <label>Cuerpo del post</label>
-                <textarea className={styles.input.text} id="body" value={post.body} onChange={(e) => setPost({ ...post, body: e.target.value })}></textarea>
-            </div>
+                <Wysiwyg content={post.body} setContent={(content:any) => setPost({ ...post, body: content })}/>
             <div className="pt-2">
                 <button onClick={onSubmit} className={styles.button.primary(false)}>Publish</button>
             </div>

@@ -1,9 +1,9 @@
 import { UserTypes } from "@/types";
-import mongoose from "mongoose";
+import mongoose, {Schema} from "mongoose";
  
   
 
-const userSchema = new mongoose.Schema<UserTypes>({
+const userSchema = new mongoose.Schema({
 username: {
     type: String,
     required: [true, "Please provide a username"],
@@ -25,13 +25,14 @@ email: {
     type: Boolean,
     default: false
  },
- posts: [String],
+ posts: [{ type: Schema.Types.ObjectId, ref: 'posts' }],
+ comments: [{ type: Schema.Types.ObjectId, ref: 'comments' }],
  forgotPasswordToken: String,
  forgotPasswordTokenExpiry: Date,
  verifyToken: String,
  verifyTokenExpiry: String
 })
 
-const User = mongoose.models.users || mongoose.model<UserTypes>("users", userSchema)
+const User = mongoose.models.users || mongoose.model("users", userSchema)
 
 export default User;

@@ -1,5 +1,6 @@
 
 import { sendEmail} from '@/helpers';
+import { validators } from '@/helpers/validators';
 import User from '@/models/userModel'
 import { NextRequest, NextResponse } from 'next/server'
 var bcryptjs = require('bcryptjs');
@@ -8,13 +9,17 @@ var bcryptjs = require('bcryptjs');
 export async function POST(request: NextRequest) {
     try {
         const {username, email, password, repeatedPassword} = await request.json();
-        if(password !== repeatedPassword){
-            return NextResponse.json({error: "Las contraseñas no coinciden"}, {status: 400})
-        }
+
+        const [validUsername, msgUsername] = validators.username({username})
+        const [validEmail, msgEmail] = validators.email({email})
+        const [validPassword, msgPassword] = validators.password({password, repeatedPassword})
+        
+        if(!validUsername) return NextResponse.json({message: msgUsername},{status: 400})
+        if(!validEmail) return NextResponse.json({message: msgEmail},{status: 400})
+        if(!validPassword) return NextResponse.json({message: msgPassword},{status: 400})
+        
         const user = await User.findOne({email})
-        if(user){
-            return NextResponse.json({error: "User already exists"}, {status: 400})
-        }
+        if(user) return NextResponse.json({message: "El usuario ya existe"}, {status: 400})
 
         const salt = await bcryptjs.genSalt(10)
         const hashedPassword = await bcryptjs.hash(password, salt)

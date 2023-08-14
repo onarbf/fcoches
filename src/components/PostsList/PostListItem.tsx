@@ -15,7 +15,7 @@ export default function PostListItem({post}: Props) {
             </div>
             <div className="px-2 min-w-[72px] text-center">{new Date(post.createdAt).getHours()}:{new Date(post.createdAt).getMinutes()}</div>
             <div className="px-2  min-w-[100px] text-center">{post.category}</div>
-            <div className="px-2 grow text-forange underline"><Link href="#">{post.title}</Link></div>
+            <div className="px-2 grow text-forange underline"><Link href={`/post/${post._id}`}>{post.title}</Link></div>
         </div>
     </li>)
 }
