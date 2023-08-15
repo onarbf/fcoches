@@ -23,6 +23,6 @@ body: {
 }
 })
 
-const Comment = mongoose.models.posts || mongoose.model("comments", commentSchema)
+const Comment = mongoose.models.comments || mongoose.model("comments", commentSchema)
 
 export default Comment;

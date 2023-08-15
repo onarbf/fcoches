@@ -1,4 +1,5 @@
-import Comment from "@/components/Comment";
+import CommentItem from "@/components/CommentItem";
+import CommentPublisher from "@/components/CommentPublisher";
 import { useSession } from "@/context/sessionContext";
 import { errorHandler } from "@/helpers/errorHandler";
 import { requester } from "@/helpers/requester";
@@ -12,6 +13,7 @@ const getPost = async (postId: string) => {
             cache: 'no-cache'
 
         })
+
         return (post)
     } catch (error: any) {
         await errorHandler(error)
@@ -44,25 +46,16 @@ export default async function PostPage({ params }: any) {
                 <div>
 
                 </div>
-                <div className="flex flex-col sm:flex-row grow ">
-                    <div className="border min-h-[42px] min-w-[200px] p-2 bg-fgrey-200">
-                        <h2 className={styles.text.h2 + " text-forange "}><Link href="#">{author.username}</Link></h2>
-                        <p>Hilos: {author.posts?.length || 0}</p>
-                        <p>Commentarios: {author.comments?.length || 0}</p>
-                    </div>
-                    <div className="border grow flex flex-col">
-                        <div className=" p-1">
-                            <b>{post && <h1>{post.title}</h1>}</b>
-                            <div className="min-w-full h-[1px] bg-black"></div>
-                        </div>
-                        <div className=" grow flex flex-col px-1 py-2">
-                            {post && <div dangerouslySetInnerHTML={{__html: post.body}} />}
-                        </div>
-                    </div>
-                </div>
+                <CommentItem comment={post} />
+
             </section>
+            <div className="mt-2">
+                {post.comments.map((comment: any) =>{
+                    console.log(comment.body)
+                return <CommentItem comment={comment} key={comment._id} />})}
+            </div>
             <div className="border mt-2 bg-fgrey-200">
-                <Comment post={post}/>
+                <CommentPublisher post={post} />
             </div>
         </section>)
 }
