@@ -1,7 +1,6 @@
 'use client'
 
 import dynamic from 'next/dynamic';
-
 const ReactQuill = dynamic(async ()=>await import('react-quill'), { ssr: false, loading: () => <p>Loading ...</p> });
 
 var myToolbar = [

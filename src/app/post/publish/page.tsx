@@ -14,7 +14,6 @@ export default function Publish() {
         body: "",
         category: "general"
     })
-    const [value, setValue] = useState('')
 
     const [loading, setLoading] = useState(false)
     const onSubmit = async () => {

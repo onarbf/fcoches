@@ -1,7 +1,8 @@
+import Comment from "@/components/Comment";
+import { useSession } from "@/context/sessionContext";
 import { errorHandler } from "@/helpers/errorHandler";
 import { requester } from "@/helpers/requester";
 import styles from "@/styles";
-import { PostType } from "@/types";
 import Link from "next/link";
 
 const getPost = async (postId: string) => {
@@ -58,8 +59,10 @@ export default async function PostPage({ params }: any) {
                             {post && <div dangerouslySetInnerHTML={{__html: post.body}} />}
                         </div>
                     </div>
-                    
                 </div>
             </section>
+            <div className="border mt-2 bg-fgrey-200">
+                <Comment post={post}/>
+            </div>
         </section>)
 }
