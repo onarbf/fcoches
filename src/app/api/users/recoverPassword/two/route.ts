@@ -1,5 +1,5 @@
+
 import { NextRequest, NextResponse } from "next/server";
-import { sendEmail } from "@/helpers";
 import User from "@/models/userModel";
 const bcryptjs = require('bcryptjs');
 

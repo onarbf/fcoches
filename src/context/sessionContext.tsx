@@ -27,6 +27,7 @@ export const SessionProvider = ({children}: {children: any})=>{
             
         }
     useEffect(()=>{
+        
         createSession()
     },[])
 

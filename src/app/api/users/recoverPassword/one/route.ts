@@ -1,9 +1,11 @@
+
 import { NextRequest, NextResponse } from "next/server";
 import { sendEmail } from "@/helpers";
 import User from "@/models/userModel";
 
 export async function POST(request: NextRequest){
     try {
+
         const {email} = await request.json()
         if(!email) return NextResponse.json({message: "introduce un email válido"},{status: 400})
         

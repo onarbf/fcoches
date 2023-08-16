@@ -7,21 +7,6 @@ import {sanitize} from "@/helpers/sanitizers";
 import Post from "@/models/postModel";
 
 
-
-// export async function GET(request: NextRequest, {params}: {params: {id: string}}){
-
-//     try {
-//         const comments = await Comment.find({});
-//         return NextResponse.json({comments},{status: 200})
-
-//     } catch (error: any) {
-//         console.log(error.message)
-//         return NextResponse.json({message: error.message},{status:500})
-//     }
-// }
-
-
-
 export async function POST(request: NextRequest, {params}: {params: {id: string}}){
 
     try {

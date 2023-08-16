@@ -7,6 +7,7 @@ import {sanitize} from "@/helpers/sanitizers";
 
 
 export async function GET(request: NextRequest){
+    
     try {
         const posts = await Post.find({}).limit(100);
         return NextResponse.json({posts},{status: 200})

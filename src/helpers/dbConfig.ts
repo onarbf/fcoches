@@ -1,8 +1,11 @@
+
+
 import mongoose from 'mongoose';
-
-
 export async function connect(){
     try {
+        await require('@/models/postModel');
+        await require('@/models/commentModel');
+        await require('@/models/userModel');
         mongoose.connect(process.env.MONGO_URI!)
         const connection = mongoose.connection;
 
@@ -18,5 +21,6 @@ export async function connect(){
         console.log('Something went wrong')
         console.log(error)
     }
+    console.log('working harddd')
 }
 connect()

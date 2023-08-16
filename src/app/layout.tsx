@@ -6,7 +6,7 @@ import NavBar from '@/components/Navbar'
 import { Toaster } from 'react-hot-toast'
 import { SessionProvider } from '@/context/sessionContext'
 import { ErrorBoundary } from 'react-error-boundary'
-
+import { connect } from '@/helpers'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -14,12 +14,11 @@ export const metadata: Metadata = {
   description: 'Una plataforma para hablar de todo, menos de coches',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-
 
   return (
     <html lang="en">

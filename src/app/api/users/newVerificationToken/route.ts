@@ -1,3 +1,4 @@
+
 import { sendEmail } from "@/helpers";
 import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
@@ -5,6 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest){
     
     try {
+
         const {token} = await request.json()
         const user = await User.findOne({verifyToken: token})
         const emailSent = await sendEmail({email: user.email,emailType:"VERIFY",userId: user._id})

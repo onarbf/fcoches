@@ -1,9 +1,10 @@
+
 import {NextRequest, NextResponse} from 'next/server';
 import { cookies } from 'next/headers'
 
 export async function GET(request: NextRequest){
-  const cookieStorage = cookies()
- try {
+  try {
+    const cookieStorage = cookies()
     const response = NextResponse.json({
         message: "Logout successful",
         success:true

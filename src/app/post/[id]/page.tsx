@@ -1,10 +1,8 @@
 import CommentItem from "@/components/CommentItem";
 import CommentPublisher from "@/components/CommentPublisher";
-import { useSession } from "@/context/sessionContext";
 import { errorHandler } from "@/helpers/errorHandler";
 import { requester } from "@/helpers/requester";
 import styles from "@/styles";
-import Link from "next/link";
 
 const getPost = async (postId: string) => {
     try {
@@ -14,7 +12,7 @@ const getPost = async (postId: string) => {
 
         })
 
-        return (post)
+        return post
     } catch (error: any) {
         await errorHandler(error)
 
@@ -23,9 +21,8 @@ const getPost = async (postId: string) => {
 export default async function PostPage({ params }: any) {
     const { id } = params
     const post = await getPost(id)
-    const { author } = post
-    return (
-        <section>
+    return (<>
+        {post && <section>
             <div className={styles.section.default}>
                 <h1 className={styles.text.h1 + " font-bold"}>{post.title}
                 </h1>
@@ -33,12 +30,12 @@ export default async function PostPage({ params }: any) {
             <section className="flex flex-col  mt-1 bg-fgrey-100" >
                 <div className="flex grow border px-2 py-1 justify-between">
                     <div className={styles.text.small}>
-                        {new Date(post.createdAt).getDay()}/
-                        {new Date(post.createdAt).getMonth()}/
-                        {new Date(post.createdAt).getFullYear()}
-                        {" " + new Date(post.createdAt).getHours()}
+                        { new Date(post.createdAt).getDay()}/
+                        { new Date(post.createdAt).getMonth()}/
+                        { new Date(post.createdAt).getFullYear()}
+                        { " " + new Date(post.createdAt).getHours()}
                         :
-                        {new Date(post.createdAt).getMinutes()}
+                        { new Date(post.createdAt).getMinutes()}
                     </div>
                     <div className={styles.text.small}>#1</div>
                 </div>
@@ -46,16 +43,17 @@ export default async function PostPage({ params }: any) {
                 <div>
 
                 </div>
-                <CommentItem comment={post} />
+               { <CommentItem comment={post} />}
 
             </section>
             <div className="mt-2">
-                {post.comments.map((comment: any) =>{
+                { post.comments.map((comment: any) =>{
                     console.log(comment.body)
                 return <CommentItem comment={comment} key={comment._id} />})}
             </div>
             <div className="border mt-2 bg-fgrey-200">
                 <CommentPublisher post={post} />
             </div>
-        </section>)
+        </section>}
+        </>)
 }

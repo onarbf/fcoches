@@ -1,9 +1,11 @@
+
 import { getDataFromToken } from "@/helpers";
 import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest){
-        try {
+    try {
+
             const userId = await getDataFromToken(request);
             const user = await User.findById({_id: userId}).select("-password");
             return NextResponse.json({message:"Returned user",user},{status: 200})
