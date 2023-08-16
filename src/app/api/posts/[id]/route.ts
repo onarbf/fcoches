@@ -1,5 +1,10 @@
 import Post from "@/models/postModel"
+import Comment from "@/models/commentModel"
+import { connect } from "@/helpers/dbConfig"
+
 import { NextRequest, NextResponse } from "next/server"
+
+connect()
 export async function GET(request: NextRequest, {params}: {params: {id: string}}){
     try {
         const {id} = params

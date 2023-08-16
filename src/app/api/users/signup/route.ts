@@ -1,10 +1,11 @@
 
 import { sendEmail} from '@/helpers';
+import { connect } from '@/helpers/dbConfig';
 import { validators } from '@/helpers/validators';
 import User from '@/models/userModel'
 import { NextRequest, NextResponse } from 'next/server'
 var bcryptjs = require('bcryptjs');
-
+connect()
 
 export async function POST(request: NextRequest) {
     try {

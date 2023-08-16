@@ -5,7 +5,9 @@ import User from "@/models/userModel";
 import { validators } from "@/helpers/validators";
 import {sanitize} from "@/helpers/sanitizers";
 import Post from "@/models/postModel";
+import { connect } from "@/helpers/dbConfig";
 
+connect()
 
 export async function POST(request: NextRequest, {params}: {params: {id: string}}){
 

@@ -6,7 +6,6 @@ import NavBar from '@/components/Navbar'
 import { Toaster } from 'react-hot-toast'
 import { SessionProvider } from '@/context/sessionContext'
 import { ErrorBoundary } from 'react-error-boundary'
-import { connect } from '@/helpers'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {

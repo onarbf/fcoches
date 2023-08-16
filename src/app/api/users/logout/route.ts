@@ -1,6 +1,9 @@
 
 import {NextRequest, NextResponse} from 'next/server';
 import { cookies } from 'next/headers'
+import { connect } from '@/helpers/dbConfig';
+
+connect()
 
 export async function GET(request: NextRequest){
   try {

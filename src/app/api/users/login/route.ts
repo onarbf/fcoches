@@ -1,10 +1,14 @@
 
+import { connect } from '@/helpers/dbConfig'
 import { validators } from '@/helpers/validators'
 import User from '@/models/userModel'
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 var bcryptjs = require('bcryptjs')
 const jwt = require("jsonwebtoken")
+
+connect()
+
 
 export async function POST(request: NextRequest) {
     const cookieStorage = cookies()

@@ -4,8 +4,9 @@ import { getDataFromToken } from "@/helpers";
 import User from "@/models/userModel";
 import { validators } from "@/helpers/validators";
 import {sanitize} from "@/helpers/sanitizers";
+import { connect } from "@/helpers/dbConfig";
 
-
+connect()
 export async function GET(request: NextRequest){
     
     try {

@@ -2,6 +2,9 @@ import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 const jwt = require('jsonwebtoken');
 import { cookies } from 'next/headers'
+import { connect } from "@/helpers/dbConfig";
+
+connect()
 
 export async function GET(request: NextRequest){
     try {
