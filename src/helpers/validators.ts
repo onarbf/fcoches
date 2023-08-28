@@ -60,10 +60,10 @@ export const validators = {
             messages.push('El username debe tener entre 4 y 20 letras')
         }
 
-        if(!validator.isLowercase(username)){
-            success = false
-            messages.push('Solo puedes usar minúsculas para el username')
-        }
+        // if(!validator.isLowercase(username)){
+        //     success = false
+        //     messages.push('Solo puedes usar minúsculas para el username')
+        // }
 
 
         return [
